@@ -1,13 +1,14 @@
 #define a_barrier a_barrier
 static inline void a_barrier()
 {
-	__asm__ __volatile__ ("fence rw,rw" : : : "memory");
+	//__asm__ __volatile__ ("fence rw,rw" : : : "memory");
 }
 
 #define a_cas a_cas
 static inline int a_cas(volatile int *p, int t, int s)
 {
 	int old, tmp;
+	/*
 	__asm__ __volatile__ (
 		"\n1:	lr.w.aqrl %0, (%2)\n"
 		"	bne %0, %3, 1f\n"
@@ -17,6 +18,9 @@ static inline int a_cas(volatile int *p, int t, int s)
 		: "=&r"(old), "=&r"(tmp)
 		: "r"(p), "r"(t), "r"(s)
 		: "memory");
+	*/
+	old = *p;
+	if (old != t) { *p = s; }
 	return old;
 }
 
@@ -25,6 +29,7 @@ static inline void *a_cas_p(volatile void *p, void *t, void *s)
 {
 	void *old;
 	int tmp;
+	/*
 	__asm__ __volatile__ (
 		"\n1:	lr.d.aqrl %0, (%2)\n"
 		"	bne %0, %3, 1f\n"
@@ -34,5 +39,8 @@ static inline void *a_cas_p(volatile void *p, void *t, void *s)
 		: "=&r"(old), "=&r"(tmp)
 		: "r"(p), "r"(t), "r"(s)
 		: "memory");
+	*/
+	old = *(void**)p;
+	if (old != t) { *(void**)p = s; }
 	return old;
 }
