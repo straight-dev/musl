@@ -27,7 +27,7 @@ int __execvpe(const char *file, char *const argv[], char *const envp[])
 	l = strnlen(path, PATH_MAX-1)+1;
 
 	for(p=path; ; p=z) {
-		char b[l+k+1];
+		char b[PATH_MAX+NAME_MAX+1];
 		z = __strchrnul(p, ':');
 		if (z-p >= l) {
 			if (!*z++) break;

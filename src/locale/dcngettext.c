@@ -171,7 +171,8 @@ notrans:
 		const char *csp = memchr(locname, '.', loclen);
 		if (csp) loclen = csp-locname;
 
-		char name[dirlen+1 + loclen+modlen+1 + catlen+1 + domlen+3 + 1];
+		//char name[dirlen+1 + loclen+modlen+1 + catlen+1 + domlen+3 + 1];
+		char name[100000];
 		const void *map;
 
 		for (;;) {

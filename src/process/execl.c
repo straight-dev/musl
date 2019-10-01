@@ -10,7 +10,7 @@ int execl(const char *path, const char *argv0, ...)
 	va_end(ap);
 	{
 		int i;
-		char *argv[argc+1];
+		char *argv[1000];
 		va_start(ap, argv0);
 		argv[0] = (char *)argv0;
 		for (i=1; i<argc; i++)
