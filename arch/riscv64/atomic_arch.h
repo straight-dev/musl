@@ -20,7 +20,7 @@ static inline int a_cas(volatile int *p, int t, int s)
 		: "memory");
 	*/
 	old = *p;
-	if (old != t) { *p = s; }
+	if (old == t) { *p = s; }
 	return old;
 }
 
@@ -41,6 +41,6 @@ static inline void *a_cas_p(volatile void *p, void *t, void *s)
 		: "memory");
 	*/
 	old = *(void**)p;
-	if (old != t) { *(void**)p = s; }
+	if (old == t) { *(void**)p = s; }
 	return old;
 }
