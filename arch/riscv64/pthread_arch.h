@@ -1,9 +1,13 @@
+void *STRAIGHT_tp;
+
 static inline struct pthread *__pthread_self()
 {
+	char *tp;
 	/*
 	__asm__ __volatile__("mv %0, tp" : "=r"(tp));
 	*/
-	return 0;
+	tp = STRAIGHT_tp;
+	return (void *)(tp - sizeof(struct pthread));
 }
 
 #define TLS_ABOVE_TP
