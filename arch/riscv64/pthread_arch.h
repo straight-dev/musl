@@ -1,4 +1,4 @@
-void *STRAIGHT_tp;
+extern void *STRAIGHT_tp;
 
 static inline struct pthread *__pthread_self()
 {
